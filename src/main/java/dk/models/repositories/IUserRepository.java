@@ -17,7 +17,7 @@ public interface IUserRepository {
     public User read(int id);
 
     // Update
-    public void update(User st);
+    public void update(User user);
 
     // Delete
     public void delete(int id);
