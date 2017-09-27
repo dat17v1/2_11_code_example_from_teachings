@@ -22,3 +22,9 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### clbo added ###
+mvnw
+mvnw.cmd
+src/test/
+
