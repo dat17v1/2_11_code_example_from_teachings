@@ -6,13 +6,13 @@
 <body>
 <h1>Create User</h1>
 
-<form th:action="@{/create}" method="post" th:object="${user}">
+    <form th:action="@{/create}" method="post" th:object="${user}">
 
-    <input type="text" th:field="*{name}" />
-    <input type="text" th:field="*{email}" />
-    <input type="submit" value="Send" />
+        <input type="text" th:field="*{name}" />
+        <input type="text" th:field="*{email}" />
+        <input type="submit" value="Send" />
 
-</form>
+    </form>
 
 </body>
 </html>

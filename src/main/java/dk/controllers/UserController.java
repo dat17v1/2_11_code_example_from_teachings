@@ -53,6 +53,7 @@ public class UserController {
         model.addAttribute("user", userRepository.read(intId));
         return "update";
     }
+    
     @PostMapping("/update")
     public String update(@ModelAttribute User user){
         userRepository.update(user);
