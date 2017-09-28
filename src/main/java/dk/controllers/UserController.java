@@ -2,6 +2,8 @@ package dk.controllers;
 
 import dk.models.entities.User;
 import dk.models.repositories.IUserRepository;
+import dk.models.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
+
     
-    IUserRepository userRepository;
+    @Autowired
+    IUserRepository userRepository = new UserRepository();
 
     // Read All
     @GetMapping("/")
