@@ -12,8 +12,10 @@ public interface IUserRepository {
     // Create
     public void create(User st);
 
-    // Read
+    // Read All
     public ArrayList<User> readAll();
+
+    // Read
     public User read(int id);
 
     // Update

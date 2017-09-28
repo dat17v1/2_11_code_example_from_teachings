@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
-
+    
     IUserRepository userRepository;
 
     // Read All
@@ -23,6 +23,14 @@ public class UserController {
     public String index(Model model){
         model.addAttribute("users", userRepository.readAll());
         return "index";
+    }
+
+    // Read One
+    @GetMapping("/details")
+    public String details(@RequestParam("id") String userId, Model model){
+        int intId = Integer.parseInt(userId);
+        model.addAttribute("user", userRepository.read(intId));
+        return "details";
     }
 
     // Create
@@ -38,14 +46,6 @@ public class UserController {
         return "redirect:/";
     }
 
-    // READ
-    @GetMapping("/details")
-    public String details(@RequestParam("id") String userId, Model model){
-        int intId = Integer.parseInt(userId);
-        model.addAttribute("user", userRepository.read(intId));
-        return "details";
-    }
-
     // Update
     @GetMapping("/update")
     public String update(@RequestParam("id") String userId, Model model){
@@ -53,7 +53,7 @@ public class UserController {
         model.addAttribute("user", userRepository.read(intId));
         return "update";
     }
-    
+
     @PostMapping("/update")
     public String update(@ModelAttribute User user){
         userRepository.update(user);
