@@ -7,7 +7,7 @@
 <h1>Create User</h1>
 
 <form th:action="@{/update}" method="post" th:object="${user}">
-    <input type="text" th:field="*{userId}" disabled="disabled" />
+    <input type="text" th:field="*{userId}" readonly="readonly"/>
     <input type="text" th:field="*{name}" />
     <input type="text" th:field="*{email}" />
     <input type="submit" value="Send" />

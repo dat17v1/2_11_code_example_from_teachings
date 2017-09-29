@@ -21,7 +21,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void create(User user) {
-        jdbc.update("INSERT INTO user (name, email) VALUES ("+ user.getName() + "," + user.getEmail() + ")");
+        jdbc.update("INSERT INTO user (name, email) VALUES ('"+ user.getName() + "','" + user.getEmail() + "')");
 
     }
 
@@ -59,6 +59,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void update(User user) {
+        System.out.println(user.toString());
         jdbc.update("UPDATE user SET name = '" + user.getName() + "' , email = '" + user.getEmail() + "' WHERE user_id = " + user.getUserId());
     }
 
