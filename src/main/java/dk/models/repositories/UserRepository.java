@@ -20,7 +20,8 @@ public class UserRepository implements IUserRepository {
     private JdbcTemplate jdbc;
 
     @Override
-    public void create(User st) {
+    public void create(User user) {
+        jdbc.update("INSERT INTO user (name, email) VALUES ("+ user.getName() + "," + user.getEmail() + ")");
 
     }
 
