@@ -13,7 +13,7 @@
         <td>Name</td>
         <td>Email</td>
     </tr>
-    <tr th:each="user: ${user}">
+    <tr th:each="user: ${users}">
         <td th:text="${user.userId}"/>
         <td th:text="${user.name}"/>
         <td th:text="${user.email}"/>

@@ -32,6 +32,7 @@ public class UserController {
     // Read One
     @GetMapping("/details")
     public String details(@RequestParam("id") String userId, Model model){
+
         int intId = Integer.parseInt(userId);
         model.addAttribute("user", userRepository.read(intId));
         return "details";
