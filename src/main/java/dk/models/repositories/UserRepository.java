@@ -18,8 +18,6 @@ public class UserRepository implements IUserRepository {
 
     @Autowired
     private JdbcTemplate jdbc;
-    //private SqlRowSet sqlRowSet;
-    private ArrayList<User> users = new ArrayList<>();
 
     @Override
     public void create(User st) {
@@ -30,18 +28,13 @@ public class UserRepository implements IUserRepository {
     public ArrayList<User> readAll() {
 
         SqlRowSet sqlRowSet;
-        users.clear();
-        //ArrayList<User> users = new ArrayList<>();
-        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM user");
-        while(sqlRowSet.next()){
-            // indhold af sqlRowset ned i en arrayliste
-           users.add(new User(sqlRowSet.getInt("user_id"), sqlRowSet.getString("name"), sqlRowSet.getString("email")));
+        ArrayList<User> users = new ArrayList<>();
 
-            // TEST i Consollen
-            int id = sqlRowSet.getInt("user_id");
-            String name =  sqlRowSet.getString("name");
-            String email =  sqlRowSet.getString("email");
-            System.out.println(id + " " + name);
+        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM user");
+
+        while(sqlRowSet.next()){
+
+           users.add(new User(sqlRowSet.getInt("user_id"), sqlRowSet.getString("name"), sqlRowSet.getString("email")));
         }
 
         return users;
@@ -50,17 +43,26 @@ public class UserRepository implements IUserRepository {
     @Override
     public User read(int id) {
 
-        User user = jdbc.queryForObject("SELECT * FROM user where user_id = 1", User.class);
-        return user;
+        SqlRowSet sqlRowSet;
+
+        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM user where user_id =" + id + "");
+
+        while(sqlRowSet.next()){
+
+            return new User(sqlRowSet.getInt("user_id"), sqlRowSet.getString("name"), sqlRowSet.getString("email"));
+        }
+
+        // if no user found return an empty user
+        return new User();
     }
 
     @Override
     public void update(User user) {
-
+        jdbc.update("UPDATE user SET name = '" + user.getName() + "' , email = '" + user.getEmail() + "' WHERE user_id = " + user.getUserId());
     }
 
     @Override
     public void delete(int id) {
-
+        jdbc.update("DELETE FROM user WHERE user_id = " + id);
     }
 }
