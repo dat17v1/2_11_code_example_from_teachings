@@ -18,8 +18,6 @@ public class UserRepository implements IUserRepository {
 
     @Autowired
     private JdbcTemplate jdbc;
-    //private SqlRowSet sqlRowSet;
-    private ArrayList<User> users = new ArrayList<>();
 
     @Override
     public void create(User st) {
@@ -29,19 +27,13 @@ public class UserRepository implements IUserRepository {
     @Override
     public ArrayList<User> readAll() {
 
-        SqlRowSet sqlRowSet;
-        users.clear();
-        //ArrayList<User> users = new ArrayList<>();
-        sqlRowSet = jdbc.queryForRowSet("SELECT * FROM user");
+        SqlRowSet sqlRowSet = jdbc.queryForRowSet("SELECT * FROM user");
+        ArrayList<User> users = new ArrayList<>();
+
         while(sqlRowSet.next()){
             // indhold af sqlRowset ned i en arrayliste
            users.add(new User(sqlRowSet.getInt("user_id"), sqlRowSet.getString("name"), sqlRowSet.getString("email")));
 
-            // TEST i Consollen
-            int id = sqlRowSet.getInt("user_id");
-            String name =  sqlRowSet.getString("name");
-            String email =  sqlRowSet.getString("email");
-            System.out.println(id + " " + name);
         }
 
         return users;
@@ -50,8 +42,16 @@ public class UserRepository implements IUserRepository {
     @Override
     public User read(int id) {
 
-        User user = jdbc.queryForObject("SELECT * FROM user where user_id = 1", User.class);
-        return user;
+        SqlRowSet sqlRowSet = jdbc.queryForRowSet("SELECT * FROM user WHERE user_id =" + id);
+
+        if(sqlRowSet.next()){
+
+            return new User(sqlRowSet.getInt("user_id"), sqlRowSet.getString("name"), sqlRowSet.getString("email"));
+
+        }
+
+        return new User();
+
     }
 
     @Override
