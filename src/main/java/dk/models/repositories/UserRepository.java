@@ -42,7 +42,7 @@ public class UserRepository implements IUserRepository {
     @Override
     public User read(int id) {
 
-        SqlRowSet sqlRowSet = jdbc.queryForRowSet("SELECT * FROM user WHERE user_id =" + id);
+        SqlRowSet sqlRowSet = jdbc.queryForRowSet("SELECT * FROM user WHERE user_id =" + id + "");
 
         if(sqlRowSet.next()){
 
@@ -56,11 +56,23 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void update(User user) {
-
+        // "Update user SET name = 'Claus', email = 'clbo@kea.dk' WHERE user_id = 3 ";
+        jdbc.update("Update user SET name = '" + user.getName() + "', email = '" + user.getEmail() +"' WHERE user_id = " + user.getUserId() + "");
     }
 
     @Override
     public void delete(int id) {
-
+        jdbc.update("DELETE FROM user WHERE user_id = " + id);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
