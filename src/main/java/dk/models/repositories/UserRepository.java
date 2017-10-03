@@ -21,7 +21,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public void create(User st) {
-
+        jdbc.update("INSERT INTO user(name, email) VALUES('" + st.getName() + "', '" + st.getEmail() + "') ");
     }
 
     @Override
